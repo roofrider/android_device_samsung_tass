@@ -70,6 +70,8 @@ BOARD_CUSTOM_GRAPHICS           := ../../../device/samsung/tass/recovery/graphic
 BOARD_USE_USB_MASS_STORAGE_SWITCH := true
 BOARD_UMS_LUNFILE := "/sys/devices/platform/usb_mass_storage/lun0/file"
 
+BOARD_CUSTOM_USB_CONTROLLER := ../../device/samsung/tass/UsbController.cpp
+
 TARGET_PROVIDES_LIBAUDIO := true
 
 TARGET_USERIMAGES_USE_EXT4 := true

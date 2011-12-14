@@ -48,14 +48,20 @@ DEVICE_PACKAGE_OVERLAYS := device/samsung/tass/overlay
 
 # HAL libs and other system binaries
 PRODUCT_PACKAGES += \
+    libRS \
+    hwprops \
+    rzscontrol \
+    Gallery \
     brcm_patchram_plus \
     copybit.tass \
     gralloc.tass \
     libOmxCore \
     make_ext4fs \
-    FM \
     dexpreopt \
-    screencap
+    screencap \
+    audio.primary.msm7k \
+    audio_policy.msm7k \
+    FileManager
 
 ifeq ($(TARGET_PREBUILT_KERNEL),)
 	LOCAL_KERNEL := device/samsung/tass/kernel
@@ -66,16 +72,23 @@ endif
 PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel
 
+# Vold config
+PRODUCT_COPY_FILES += \
+    device/samsung/tass/vold.fstab:system/etc/vold.fstab
+
 ## Hardware properties 
 PRODUCT_COPY_FILES += \
-    frameworks/base/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
-    frameworks/base/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
-    frameworks/base/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
+    frameworks/base/data/etc/android.hardware.camera.xml:system/etc/permissions/android.hardware.camera.xml \
     frameworks/base/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
-    frameworks/base/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
-    frameworks/base/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
+    frameworks/base/data/etc/android.hardware.location.xml:system/etc/permissions/android.hardware.location.xml \
+    frameworks/base/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
+    frameworks/base/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml \
     frameworks/base/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
-    frameworks/base/data/etc/android.hardware.touchscreen.multitouch.distinct.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml
+    frameworks/base/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
+    frameworks/base/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
+    frameworks/base/data/etc/android.hardware.touchscreen.multitouch.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.xml \
+    frameworks/base/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
+    frameworks/base/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml
 
 # Board-specific init
 PRODUCT_COPY_FILES += \
@@ -85,19 +98,8 @@ PRODUCT_COPY_FILES += \
     device/samsung/tass/prebuilt/rfs_fat.ko:root/lib/modules/rfs_fat.ko \
     device/samsung/tass/prebuilt/rfs_glue.ko:root/lib/modules/rfs_glue.ko \
     device/samsung/tass/prebuilt/sec_param.ko:root/lib/modules/sec_param.ko \
-    device/samsung/tass/prebuilt/cifs.ko:system/lib/modules/cifs.ko \
-    device/samsung/tass/prebuilt/cpaccess.ko:system/lib/modules/cpaccess.ko \
-    device/samsung/tass/prebuilt/dma_test.ko:system/lib/modules/dma_test.ko \
-    device/samsung/tass/prebuilt/evbug.ko:system/lib/modules/evbug.ko \
-    device/samsung/tass/prebuilt/gpuoc.ko:system/lib/modules/gpuoc.ko \
-    device/samsung/tass/prebuilt/librasdioif.ko:system/lib/modules/librasdioif.ko \
     device/samsung/tass/prebuilt/lzo_compress.ko:system/lib/modules/lzo_compress.ko \
     device/samsung/tass/prebuilt/lzo_decompress.ko:system/lib/modules/lzo_decompress.ko \
-    device/samsung/tass/prebuilt/oprofile.ko:system/lib/modules/oprofile.ko \
-    device/samsung/tass/prebuilt/reset_modem.ko:system/lib/modules/reset_modem.ko \
-    device/samsung/tass/prebuilt/scsi_wait_scan.ko:system/lib/modules/scsi_wait_scan.ko \
-    device/samsung/tass/prebuilt/tassuv.ko:system/lib/modules/tassuv.ko \
-    device/samsung/tass/prebuilt/tun.ko:system/lib/modules/tun.ko \
     device/samsung/tass/TASS.rle:root/TASS.rle \
     device/samsung/tass/init.gt-s5570.rc:root/init.gt-s5570.rc \
     device/samsung/tass/prebuilt/ramzswap.ko:system/lib/modules/ramzswap.ko 
@@ -110,10 +112,10 @@ PRODUCT_COPY_FILES += \
 
 ## Media
 PRODUCT_COPY_FILES += \
+    device/samsung/tass/egl.cfg:system/lib/egl/egl.cfg \
     device/samsung/tass/AutoVolumeControl.txt:system/etc/AutoVolumeControl.txt \
     device/samsung/tass/AudioFilter.csv:system/etc/AudioFilter.csv \
-    device/samsung/tass/media_profiles.xml:system/etc/media_profiles.xml \
-    device/samsung/tass/vold.fstab:system/etc/vold.fstab 
+    device/samsung/tass/media_profiles.xml:system/etc/media_profiles.xml 
 
 ## keymap
 PRODUCT_COPY_FILES += \
@@ -121,9 +123,23 @@ PRODUCT_COPY_FILES += \
     device/samsung/tass/sec_jack.kl:system/usr/keylayout/sec_jack.kl \
     device/samsung/tass/sec_key.kl:system/usr/keychars/sec_key.kl 
 
+# Touchscreen
+PRODUCT_COPY_FILES += \
+    device/samsung/tass/synaptics-rmi-touchscreen.idc:system/usr/idc/synaptics-rmi-touchscreen.idc
+
 $(call inherit-product-if-exists, vendor/samsung/tass/tass-vendor.mk)
+
+$(call inherit-product, build/target/product/full_base.mk)
+
+# The gps config appropriate for this device
+$(call inherit-product, device/common/gps/gps_eu_supl.mk)
+
+# LDPI assets
+PRODUCT_LOCALES += ldpi mdpi
 
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 PRODUCT_NAME := tass
 PRODUCT_DEVICE := tass
 PRODUCT_MODEL := GT-S5570
+PRODUCT_BRAND := samsung
+PRODUCT_MANUFACTURER := samsung

@@ -5,7 +5,7 @@ $(call inherit-product, vendor/cm/config/gsm.mk)
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
 # Inherit device configuration
-$(call inherit-product, device/huawei/u8150/device_tass.mk)
+$(call inherit-product, device/samsung/tass/device_tass.mk)
 
 PRODUCT_NAME := cm_tass
 
@@ -18,4 +18,4 @@ PRODUCT_VERSION_DEVICE_SPECIFIC :=
 PRODUCT_DEVICE := tass
 
 #Set build fingerprint / ID / Prduct Name ect.
-#PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=cm_tass BUILD_ID=ITL41D BUILD_DISPLAY_ID=ITL41D BUILD_FINGERPRINT="tass:4.0.1/ITL41D/223971:user/release-keys" PRVIATE_BUILD_DESC="tass-user 4.0.1 ITL41D 223971 release-keys"
+#PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=cm_tass BUILD_ID=ITL41D BUILD_DISPLAY_ID=ITL41D BUILD_FINGERPRINT="cm_tass:4.0.1/ITL41D/223971:user/release-keys" PRVIATE_BUILD_DESC="cm_tass-user 4.0.1 ITL41D 223971 release-keys"

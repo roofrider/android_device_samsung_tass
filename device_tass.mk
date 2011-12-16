@@ -104,6 +104,22 @@ PRODUCT_COPY_FILES += \
     device/samsung/tass/init.gt-s5570.rc:root/init.gt-s5570.rc \
     device/samsung/tass/prebuilt/ramzswap.ko:system/lib/modules/ramzswap.ko 
 
+## wifi module
+PRODUCT_COPY_FILES += \
+    device/samsung/tass/wifi/ar6000.ko:system/wifi/ar6000.ko \
+    device/samsung/tass/wifi/ath6k/AR6003/hw2.0/athtcmd_ram.bin:system/wifi/ath6k/AR6003/hw2.0/athtcmd_ram.bin \
+    device/samsung/tass/wifi/ath6k/AR6003/hw2.0/athwlan.bin.z77:system/wifi/ath6k/AR6003/hw2.0/athwlan.bin.z77 \
+    device/samsung/tass/wifi/ath6k/AR6003/hw2.0/bdata.SD31.bin:system/wifi/ath6k/AR6003/hw2.0/bdata.SD31.bin \
+    device/samsung/tass/wifi/ath6k/AR6003/hw2.0/bdata.SD31.bin.01:system/wifi/ath6k/AR6003/hw2.0/bdata.SD31.bin.01 \
+    device/samsung/tass/wifi/ath6k/AR6003/hw2.0/bdata.SD31.bin.02:system/wifi/ath6k/AR6003/hw2.0/bdata.SD31.bin.02 \
+    device/samsung/tass/wifi/ath6k/AR6003/hw2.0/bdata.SD31.bin.03:system/wifi/ath6k/AR6003/hw2.0/bdata.SD31.bin.03 \
+    device/samsung/tass/wifi/ath6k/AR6003/hw2.0/data.patch.bin:system/wifi/ath6k/AR6003/hw2.0/data.patch.bin \
+    device/samsung/tass/wifi/ath6k/AR6003/hw2.0/otp.bin.z77:system/wifi/ath6k/AR6003/hw2.0/otp.bin.z77 \
+    device/samsung/tass/bin/hostapd:system/bin/hostapd \
+    device/samsung/tass/bin/wlan_mac:system/bin/wlan_mac \
+    device/samsung/tass/bin/wlan_tool:system/bin/wlan_tool \
+    device/samsung/tass/bin/wmiconfig:system/bin/wmiconfig 
+
 ## Wifi Stuff
 PRODUCT_COPY_FILES += \
     device/samsung/tass/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
@@ -121,11 +137,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/samsung/tass/qwerty.kl:system/usr/keylayout/qwerty.kl \
     device/samsung/tass/sec_jack.kl:system/usr/keylayout/sec_jack.kl \
-    device/samsung/tass/sec_key.kl:system/usr/keychars/sec_key.kl 
+    device/samsung/tass/sec_key.kl:system/usr/keylayout/sec_key.kl 
 
 # Touchscreen
 PRODUCT_COPY_FILES += \
-    device/samsung/tass/synaptics-rmi-touchscreen.idc:system/usr/idc/synaptics-rmi-touchscreen.idc
+    device/samsung/tass/sec-touchscreen.idc:system/usr/idc/sec-touchscreen.idc
 
 $(call inherit-product-if-exists, vendor/samsung/tass/tass-vendor.mk)
 

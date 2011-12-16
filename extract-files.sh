@@ -117,7 +117,7 @@ adb pull /system/lib/hw/lights.msm7k.so ../../../vendor/$MANUFACTURER/$DEVICE/pr
 adb pull /system/lib/hw/sensors.default.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/lib/hw
 adb pull /system/bin/memsicd ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/bin
 
-# camera
+# egl
 adb pull /system/lib/egl/libGLESv1_CM_adreno200.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/lib/egl
 adb pull /system/lib/egl/libq3dtools_adreno200.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/lib/egl
 adb pull /system/lib/egl/libEGL_adreno200.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/lib/egl
@@ -220,6 +220,7 @@ PRODUCT_COPY_FILES += \\
 ## Bluetooth
 PRODUCT_COPY_FILES += \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/bin/BCM2049C0_003.001.031.0088.0094.hcd:system/bin/BCM2049C0_003.001.031.0088.0094.hcd \\
+    vendor/__MANUFACTURER__/__DEVICE__/proprietary/bin/BCM2049C0_003.001.031.0088.0094.hcd:system/etc/firmware/BCM2049C0_003.001.031.0088.0094.hcd \\
 	
 ## Audio
 PRODUCT_COPY_FILES += \\
@@ -229,7 +230,8 @@ PRODUCT_COPY_FILES += \\
 ##GPS
 PRODUCT_COPY_FILES += \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/lib/hw/gps.msm7k.so:system/lib/hw/gps.msm7k.so \\
-    vendor/__MANUFACTURER__/__DEVICE__/proprietary/bin/gpsd:system/bin/gpsd 
+    vendor/__MANUFACTURER__/__DEVICE__/proprietary/lib/hw/gps.msm7k.so:system/vendor/lib/hw/gps.msm7k.so \\
+    vendor/__MANUFACTURER__/__DEVICE__/proprietary/bin/gpsd:system/vendor/bin/gpsd 
 
 ## Light
 PRODUCT_COPY_FILES += \\

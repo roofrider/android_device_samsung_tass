@@ -59,6 +59,8 @@ PRODUCT_PACKAGES += \
     make_ext4fs \
     dexpreopt \
     screencap \
+    audio.primary.tass \
+    audio_policy.tass \
     audio.primary.msm7k \
     audio_policy.msm7k \
     FileManager

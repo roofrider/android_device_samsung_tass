@@ -1,0 +1,39 @@
+#
+# system.prop for GT-S5570
+#
+
+# Graphics
+view.fading_edge_length=8
+view.minimum_fling_velocity=25
+view.scroll_friction=0.008
+view.touch_slop=15
+ro.media.dec.jpeg.memcap=20000000
+ro.opengles.version=65537
+ro.sf.lcd_density=120
+persist.sys.use_dithering=0
+persist.sys.purgeable_assets=1
+persist.sys.use_16bpp_alpha=1
+
+# RIL
+rild.libpath=/system/lib/libsec-ril.so
+rild.libargs=-d /dev/smd0
+ro.telephony.default_network=0
+ro.com.android.dataroaming=false
+
+# No Autofocus device
+ro.workaround.noautofocus=1
+
+DEVICE_PROVISIONED=1
+qemu.sf.lcd_density=120
+
+# Wifi interface
+wifi.interface=wlan0
+
+ro.telephony.ril_class=samsung
+mobiledata.interfaces=pdp0,gprs,ppp0,wlan0
+
+# System and Misc.
+ro.com.google.locationfeatures=0
+ro.tether.denied=false
+sys.checkfs.fat=false
+ro.vold.umsdirtyratio=20

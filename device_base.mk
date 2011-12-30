@@ -45,15 +45,24 @@ PRODUCT_PACKAGES += \
     SpareParts \
     Development \
     Term \
+    prox_cal \
     make_ext4fs \
     brcm_patchram_plus \
     gps.tass \
+    gralloc.tass \
+    copybit.tass \
     setup_fs \
+    gralloc.tass \
+    libOmxCore \
+    libOmxVidEnc \
     FileManager \
+    screencap \
     audio.a2dp.default \
     dexpreopt \
+    abtfilt \
     hwcomposer.default \
     Stk \
+    lzo \
     zipalign \
     Superuser \
     Camera
@@ -79,6 +88,7 @@ PRODUCT_COPY_FILES += \
 ## Board-specific init
 PRODUCT_COPY_FILES += \
     device/samsung/tass/ueventd.gt-s5570.rc:root/ueventd.gt-s5570.rc \
+    device/samsung/tass/init.gt-s5570.usb.rc:root/init.gt-s5570.usb.rc \
     device/samsung/tass/prebuilt/fsr.ko:root/lib/modules/fsr.ko \
     device/samsung/tass/prebuilt/fsr_stl.ko:root/lib/modules/fsr_stl.ko \
     device/samsung/tass/prebuilt/rfs_fat.ko:root/lib/modules/rfs_fat.ko \
@@ -155,6 +165,9 @@ PRODUCT_COPY_FILES += \
     device/samsung/tass/prebuilt/gpsd:system/bin/gpsd \
     device/samsung/tass/prebuilt/qmuxd:system/bin/qmuxd \
     device/samsung/tass/prebuilt/gps.msm7k.so:system/vendor/lib/hw/gps.msm7k.so \
+    device/samsung/tass/prebuilt/gps.msm7k.so:system/lib/hw/gps.msm7k.so \
+    device/samsung/tass/prebuilt/lights.msm7k.so:system/lib/hw/lights.msm7k.so \
+    device/samsung/tass/prebuilt/sensors.default.so:system/lib/hw/sensors.default.so \
     device/samsung/tass/prebuilt/gpsd:system/vendor/bin/gpsd \
     device/samsung/tass/prebuilt/memsicd:system/bin/memsicd 
 
@@ -164,6 +177,7 @@ PRODUCT_COPY_FILES += \
     device/samsung/tass/prebuilt/libq3dtools_adreno200.so:system/lib/egl/libq3dtools_adreno200.so \
     device/samsung/tass/prebuilt/libEGL_adreno200.so:system/lib/egl/libEGL_adreno200.so \
     device/samsung/tass/prebuilt/libGLESv2_adreno200.so:system/lib/egl/libGLESv2_adreno200.so \
+    device/samsung/tass/prebuilt/libgsl.so:system/lib/libgsl.so \
     device/samsung/tass/prebuilt/egl.cfg:system/lib/egl/egl.cfg 
 
 ## GPU firmware
@@ -196,19 +210,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     keyguard.no_require_sim=true \
     ro.com.android.dateformat=dd-MM-yyyy \
-    ro.ril.hsxpa=1 \
-    ro.ril.gprsclass=10 \
-    ro.media.dec.jpeg.memcap=10000000
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    mobiledata.interfaces=pdp0,wlan0,gprs,ppp0 \
-    ro.telephony.ril_class=samsung \
-    wifi.interface=wlan0 \
-    wifi.supplicant_scan_interval=15 \
-    ro.com.android.dataroaming=false
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.sf.lcd_density=120
 
 # LDPI assets
 PRODUCT_LOCALES += ldpi mdpi
@@ -216,19 +217,3 @@ $(call inherit-product, build/target/product/full_base.mk)
 
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
-
-# This should not be needed but on-screen keyboard uses the wrong density without it.
-PRODUCT_PROPERTY_OVERRIDES += \
-    qemu.sf.lcd_density=120
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.com.google.locationfeatures=1 \
-    ro.setupwizard.enable_bypass=1 \
-    ro.media.dec.jpeg.memcap=20000000 \
-    dalvik.vm.lockprof.threshold=500 \
-    dalvik.vm.dexopt-flags=m=y \
-    dalvik.vm.heapsize=48m \
-    dalvik.vm.execution-mode=int:jit \
-    dalvik.vm.dexopt-data-only=1 \
-    ro.opengles.version=131072  \
-    ro.compcache.default=0

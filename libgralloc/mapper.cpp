@@ -50,7 +50,6 @@ pid_t gettid() { return syscall(__NR_gettid);}
 #undef __KERNEL__
 #endif
 
-// Pulled from CAF's pmem_android and ashmem headers
 struct pmem_addr {
         unsigned long vaddr;
         unsigned long offset;

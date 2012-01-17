@@ -18,7 +18,6 @@
 #include <errno.h>
 #include <fcntl.h>
 
-
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
@@ -48,13 +47,20 @@ int UsbController::stopRNDIS() {
 
 
 int UsbController::enableRNDIS(bool enable) {
+	    char ums;
+	    int fdums = open("/sys/devices/platform/msm_hsusb/gadget/lun0/file", O_RDWR);
+	    read(fdums, &ums, 1);
+	    close(fdums);
+	    if (ums == '/')
+		return 0;
+
 	    char value[20];
 	    int fd = open("/sys/module/g_android/parameters/product_id", O_RDWR);
 	    int count = snprintf(value, sizeof(value), "%s\n", (enable ? "6881" : "689e"));
 	    write(fd, value, count);
 	    close(fd);
 	    return 0;
-	}
+}
 
 bool UsbController::isRNDISStarted() {
     char value[5];

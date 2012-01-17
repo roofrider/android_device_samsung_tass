@@ -54,7 +54,14 @@ PRODUCT_PACKAGES += \
     libOmxCore \
     make_ext4fs \
     FM \
+    rzscontrol \
+    SamsungServiceMode \
+    bdaddr_read \
     dexpreopt \
+    dump_image \
+    e2fsck \
+    erase_image \
+    flash_image \
     screencap
 
 ifeq ($(TARGET_PREBUILT_KERNEL),)
@@ -85,16 +92,14 @@ PRODUCT_COPY_FILES += \
     device/samsung/tass/prebuilt/rfs_fat.ko:root/lib/modules/rfs_fat.ko \
     device/samsung/tass/prebuilt/rfs_glue.ko:root/lib/modules/rfs_glue.ko \
     device/samsung/tass/prebuilt/sec_param.ko:root/lib/modules/sec_param.ko \
-    device/samsung/tass/prebuilt/lzo_compress.ko:system/lib/modules/lzo_compress.ko \
-    device/samsung/tass/prebuilt/lzo_decompress.ko:system/lib/modules/lzo_decompress.ko \
     device/samsung/tass/TASS.rle:root/TASS.rle \
-    device/samsung/tass/init.gt-s5570.rc:root/init.gt-s5570.rc \
-    device/samsung/tass/prebuilt/ramzswap.ko:system/lib/modules/ramzswap.ko 
+    device/samsung/tass/init.gt-s5570.rc:root/init.gt-s5570.rc
 
 ## Wifi Stuff
 PRODUCT_COPY_FILES += \
     device/samsung/tass/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
     device/samsung/tass/hostapd.conf:system/etc/wifi/hostapd.conf \
+    device/samsung/tass/get_macaddrs:system/bin/get_macaddrs \
     device/samsung/tass/dhcpcd.conf:system/etc/dhcpcd/dhcpcd.conf 
 
 ## Media

@@ -60,6 +60,7 @@ PRODUCT_PACKAGES += \
     dexpreopt \
     dump_image \
     e2fsck \
+    setup_fs \
     erase_image \
     flash_image \
     screencap
@@ -97,23 +98,42 @@ PRODUCT_COPY_FILES += \
 
 ## Wifi Stuff
 PRODUCT_COPY_FILES += \
-    device/samsung/tass/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
-    device/samsung/tass/hostapd.conf:system/etc/wifi/hostapd.conf \
-    device/samsung/tass/get_macaddrs:system/bin/get_macaddrs \
-    device/samsung/tass/dhcpcd.conf:system/etc/dhcpcd/dhcpcd.conf 
+    device/samsung/tass/prebuilt/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
+    device/samsung/tass/prebuilt/hostapd.conf:system/etc/wifi/hostapd.conf \
+    device/samsung/tass/prebuilt/get_macaddrs:system/bin/get_macaddrs \
+    device/samsung/tass/prebuilt/dhcpcd.conf:system/etc/dhcpcd/dhcpcd.conf 
 
 ## Media
 PRODUCT_COPY_FILES += \
-    device/samsung/tass/AutoVolumeControl.txt:system/etc/AutoVolumeControl.txt \
-    device/samsung/tass/AudioFilter.csv:system/etc/AudioFilter.csv \
-    device/samsung/tass/media_profiles.xml:system/etc/media_profiles.xml \
-    device/samsung/tass/vold.fstab:system/etc/vold.fstab 
+    device/samsung/tass/prebuilt/AutoVolumeControl.txt:system/etc/AutoVolumeControl.txt \
+    device/samsung/tass/prebuilt/AudioFilter.csv:system/etc/AudioFilter.csv \
+    device/samsung/tass/prebuilt/media_profiles.xml:system/etc/media_profiles.xml \
+    device/samsung/tass/prebuilt/audio.conf:system/etc/bluetooth/audio.conf \
+    device/samsung/tass/prebuilt/bootsound:system/bin/bootsound \
+    device/samsung/tass/prebuilt/poweron.ogg:system/media/poweron.ogg \
+    device/samsung/tass/prebuilt/vold.fstab:system/etc/vold.fstab 
 
 ## keymap
 PRODUCT_COPY_FILES += \
-    device/samsung/tass/qwerty.kl:system/usr/keylayout/qwerty.kl \
-    device/samsung/tass/sec_jack.kl:system/usr/keylayout/sec_jack.kl \
-    device/samsung/tass/sec_key.kl:system/usr/keychars/sec_key.kl 
+    device/samsung/tass/prebuilt/qwerty.kl:system/usr/keylayout/qwerty.kl \
+    device/samsung/tass/prebuilt/sec_jack.kl:system/usr/keylayout/sec_jack.kl \
+    device/samsung/tass/prebuilt/sec_key.kl:system/usr/keylayout/sec_key.kl \
+    device/samsung/tass/prebuilt/sec_key.kcm.bin:system/usr/keychars/sec_key.kcm.bin
+
+## Tweaks
+## PRODUCT_COPY_FILES += \
+##     device/samsung/tass/prebuilt/30mountcache:system/etc/init.d/30mountcache \
+##     device/samsung/tass/prebuilt/70zipalign:system/etc/init.d/70zipalign \
+##     device/samsung/tass/prebuilt/zipalign:system/xbin/zipalign \
+##     device/samsung/tass/prebuilt/sdcardtune:system/bin/sdcardtune \
+##     device/samsung/tass/prebuilt/internets:system/bin/internets \
+##     device/samsung/tass/prebuilt/lowmemvalue:system/bin/lowmemvalue \
+##     device/samsung/tass/prebuilt/tweaksos:system/bin/tweaksos \
+##     device/samsung/tass/prebuilt/97swap2sd:system/etc/init.d/97swap2sd \
+##     device/samsung/tass/prebuilt/98swapmarker:system/etc/init.d/98swapmarker \
+##     device/samsung/tass/prebuilt/swapper:system/bin/swapper \
+##     device/samsung/tass/prebuilt/be_photo:system/etc/be_photo \
+##     device/samsung/tass/prebuilt/be_movie:system/etc/be_movie \
 
 $(call inherit-product-if-exists, vendor/samsung/tass/tass-vendor.mk)
 

@@ -1,4 +1,5 @@
-# Copyright (C) 2007 The Android Open Source Project
+# Copyright (C) 2010 Ricardo Cerqueira
+# Copyright (C) 2011 Pawit Pornkitprasan
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,16 +13,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# BoardConfig.mk
-#
-# Product-specific compile-time definitions.
-#
+LOCAL_PATH:= $(call my-dir)
+include $(CLEAR_VARS)
 
-# Make touchscreen work
-BOARD_USE_LEGACY_TOUCHSCREEN := true
+LOCAL_MODULE_TAGS := optional
 
-# Use the non-open-source parts, if they're present
-#include vendor/samsung/tass/BoardConfigVendor.mk
+LOCAL_SRC_FILES := bdaddr_read.c
 
-# Use the parts that are common between all tass
-include device/samsung/tass/BoardConfigCommon.mk
+LOCAL_SHARED_LIBRARIES := libcutils
+
+LOCAL_MODULE := bdaddr_read
+
+include $(BUILD_EXECUTABLE)
+

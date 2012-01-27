@@ -26,8 +26,6 @@ on fs
     write /sys/devices/virtual/block/stl13/queue/read_ahead_kb 4
     write /sys/devices/virtual/block/stl14/queue/read_ahead_kb 4
 
-import init.gt-s5570.usb.rc
-
     export EXTERNAL_STORAGE /mnt/sdcard
     mkdir /mnt 0775 root system
     mkdir /mnt/sdcard 0000 system system
@@ -37,12 +35,11 @@ import init.gt-s5570.usb.rc
 on boot
 
 # cpufreq configurations
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ondemand
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 245760
+    #write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ondemand
     write /sys/devices/system/cpu/cpu0/cpufreq/ondemand/up_threshold 95
     write /sys/devices/system/cpu/cpu0/cpufreq/ondemand/down_differential 3
     write /sys/devices/system/cpu/cpu0/cpufreq/ondemand/sampling_rate 50000
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 600000
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 245760
 
 # Temporary hack to prevent framebuffer flicker
     write /sys/class/graphics/fb0/state 1
@@ -52,6 +49,7 @@ on boot
 
 # Setup bluetooth
     setprop ro.bt.bdaddr_path "/data/.nvmac_bt.info"
+    mkdir /data/misc/bluetooth 0770 bluetooth bluetooth
     chown bluetooth bluetooth /sys/module/bluetooth_power/parameters/power
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
@@ -60,6 +58,8 @@ on boot
     chmod 0660 /sys/module/bluetooth_power/parameters/power
     chmod 0660 /sys/class/rfkill/rfkill0/state
     chmod 0660 /proc/bluetooth/sleep/proto
+    chown bluetooth bluetooth /dev/ttyHS0
+    chmod 0660 /dev/ttyHS0
     chown bluetooth bluetooth /sys/devices/platform/msm_serial_hs.0/clock
     chmod 0660 /sys/devices/platform/msm_serial_hs.0/clock
 
@@ -81,10 +81,23 @@ on boot
     chown radio shell /data/local/tmp
     mkdir /data/misc/radio 0770 radio radio
 
+   
 # Sensors
     mkdir /data/misc/sensors 0777 system misc
-
+    chown root system /dev/mmc31xx
+    chown root system /dev/bma_accel
+    chown root system /dev/kr3dm_accel
+    chown root system /dev/ecompass_ctrl
+    chown root system /dev/proximity
+    chown root system /dev/ledflash
+    chown fm_radio fm_radio /dev/radio0
     chown system radio /sys/devices/virtual/accelerometer/accelerometer/calibrate
+    chmod 0664 /dev/radio0
+    chmod 0660 /dev/mmc31xx
+    chmod 0660 /dev/bma_accel
+    chmod 0660 /dev/kr3dm_accel
+    chmod 0660 /dev/ecompass_ctrl
+    chmod 0660 /dev/proximity
     chmod 0660 /data/misc/sensors/ecs_nvm
     chmod 0660 /data/misc/sensors/accel_offset
     chmod 0664 /sys/devices/virtual/accelerometer/accelerometer/calibrate
@@ -94,6 +107,7 @@ on boot
     chown system system /sys/class/input/input3/poll_delay
     chmod 0660 /sys/class/input/input3/enable
     chmod 0660 /sys/class/input/input3/poll_delay
+    chmod 0664 /sys/class/usb_composite/rndis/enable
 
     chown system radio /sys/devices/virtual/touch/firmware/firmware
     chmod 0664 /sys/devices/virtual/touch/firmware/firmware
@@ -128,6 +142,20 @@ on boot
     write /sys/bus/platform/drivers/msm_sdcc/msm_sdcc.1/polling 1
     write /sys/bus/platform/drivers/msm_sdcc/msm_sdcc.2/polling 1
 
+# for silent reset
+    chown system system /proc/dump_enable
+    chown system system /proc/silent
+
+    # for multi csc
+    chown radio radio /proc/LinuStoreIII/efs_info 
+    chmod 0664 /proc/LinuStoreIII/efs_info
+    # for protecting key string
+    chown radio radio /proc/LinuStoreIII/keystr 
+    chmod 0664 /proc/LinuStoreIII/keystr
+    # for ril_prop
+    chown radio radio /proc/LinuStoreIII/ril_prop 
+    chmod 0664 /proc/LinuStoreIII/ril_prop
+
 service dhcp-service /system/bin/netcfg wlan0 dhcp
     oneshot
 
@@ -147,6 +175,10 @@ service wpa_supplicant /system/bin/wpa_supplicant -Dawext -W -w -iwlan0 -c/data/
 service dhcpcd_wlan0 /system/bin/dhcpcd -BKL
     disabled
     oneshot
+
+service iprenew_wlan0 /system/bin/dhcpcd -n
+	disabled
+	oneshot
 
 service wlan_mac /system/bin/wlan_mac
     user system
@@ -173,6 +205,14 @@ service hciattach /system/bin/brcm_patchram_plus --enable_hci --enable_lpm --bau
     disabled
     oneshot
 
+service bdaddr_read /system/bin/bdaddr_read
+    user root
+    disabled
+    oneshot
+
+on property:init.svc.bootanim=running
+    start bdaddr_read
+
 service gps-daemon /system/bin/gpsd
     user system
     group system inet
@@ -181,6 +221,12 @@ service memsicd /system/bin/memsicd
     user system
     group system
     oneshot
+
+service setup_fs /system/bin/setup_fs /dev/block/stl13 /dev/block/stl14
+	user root
+	group root
+	oneshot
+	disabled
 
 # From init.gt-i5500.rc by subpsyke
 service get_macaddrs /system/bin/get_macaddrs
@@ -191,8 +237,15 @@ service get_macaddrs /system/bin/get_macaddrs
 on property:init.svc.ril-daemon=running
     start get_macaddrs
 
-# bugreport is triggered by the KEY_VOLUMEUP and KEY_HOME keycodes
+# bugreport is triggered by holding down the KEY_VOLUMEUP and KEY_HOME keycodes
 service bugreport /system/bin/dumpstate -d -v -o /sdcard/bugreports/bugreport
     disabled
     oneshot
     keycodes 115 102
+
+# reboot is triggered by holding down the KEY_VOLUMEDOWN and KEY_POWER keycodes
+service reboot_key /system/bin/reboot
+    user system
+    oneshot
+    keycodes 114 107
+    disabled

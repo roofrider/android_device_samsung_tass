@@ -36,36 +36,10 @@ PRODUCT_COPY_FILES += \
 
 ## Live wallpaper packages
 PRODUCT_PACKAGES += \
-    LiveWallpapersPicker \
-    librs_jni \
-    libRS \
-    hwprops \
-    rzscontrol \
-    Gallery \
-    SpareParts \
-    Development \
-    Term \
-    prox_cal \
     make_ext4fs \
     brcm_patchram_plus \
-    gps.tass \
-    gralloc.tass \
-    copybit.tass \
-    setup_fs \
-    gralloc.tass \
-    libOmxCore \
-    libOmxVidEnc \
-    FileManager \
-    screencap \
-    audio.a2dp.default \
-    dexpreopt \
-    abtfilt \
-    hwcomposer.default \
-    Stk \
-    lzo \
-    zipalign \
-    Superuser \
-    Camera
+    bdaddr_read \
+    setup_fs 
 
 ## Vold config
 PRODUCT_COPY_FILES += \
@@ -83,12 +57,16 @@ PRODUCT_COPY_FILES += \
     frameworks/base/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
     frameworks/base/data/etc/android.hardware.touchscreen.multitouch.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.xml \
     frameworks/base/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
+    frameworks/base/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
+    frameworks/base/data/etc/platform.xml:system/etc/permissions/platform.xml \
+    frameworks/base/data/etc/android.software.sip.xml:system/etc/permissions/android.software.sip.xml \
+    frameworks/base/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
     frameworks/base/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml
 
 ## Board-specific init
 PRODUCT_COPY_FILES += \
     device/samsung/tass/ueventd.gt-s5570.rc:root/ueventd.gt-s5570.rc \
-    device/samsung/tass/init.gt-s5570.usb.rc:root/init.gt-s5570.usb.rc \
+    device/samsung/tass/default.prop:root/default.prop \
     device/samsung/tass/prebuilt/fsr.ko:root/lib/modules/fsr.ko \
     device/samsung/tass/prebuilt/fsr_stl.ko:root/lib/modules/fsr_stl.ko \
     device/samsung/tass/prebuilt/rfs_fat.ko:root/lib/modules/rfs_fat.ko \
@@ -188,9 +166,7 @@ PRODUCT_COPY_FILES += \
 ## other media
 PRODUCT_COPY_FILES += \
     device/samsung/tass/prebuilt/bootanimation.zip:system/media/bootanimation.zip \
-    device/samsung/tass/prebuilt/bootsound:system/bin/bootsound \
-    device/samsung/tass/prebuilt/get_macaddrs:system/bin/get_macaddrs \
-    device/samsung/tass/prebuilt/poweron.ogg:system/media/poweron.ogg
+    device/samsung/tass/prebuilt/get_macaddrs:system/bin/get_macaddrs 
 
 ## ril
 PRODUCT_COPY_FILES += \
@@ -204,16 +180,14 @@ PRODUCT_COPY_FILES += \
     device/samsung/tass/prebuilt/01sysctl:system/etc/init.d/01sysctl \
     device/samsung/tass/prebuilt/04modules:system/etc/init.d/04modules \
     device/samsung/tass/prebuilt/20userinit:system/etc/init.d/20userinit \
-    device/samsung/tass/prebuilt/99complete:system/etc/init.d/99complete \
-    device/samsung/tass/prebuilt/00banner:system/etc/init.d/00banner
+    device/samsung/tass/prebuilt/99complete:system/etc/init.d/99complete 
 
 PRODUCT_PROPERTY_OVERRIDES += \
     keyguard.no_require_sim=true \
     ro.com.android.dateformat=dd-MM-yyyy \
 
 # LDPI assets
-PRODUCT_LOCALES += ldpi mdpi
+PRODUCT_LOCALES += en
+PRODUCT_AAPT_CONFIG := normal ldpi mdpi
+PRODUCT_AAPT_PREF_CONFIG := ldpi
 $(call inherit-product, build/target/product/full_base.mk)
-
-# we have enough storage space to hold precise GC data
-PRODUCT_TAGS += dalvik.gc.type-precise

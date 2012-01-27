@@ -74,7 +74,7 @@ class PmemAllocatorDepsDeviceImpl : public PmemUserspaceAllocator::Deps,
         }
 #else
 #ifdef USE_ASHMEM
-	*size = m->info.xres * m->info.yres * 2 * 2;
+	*size = 23<<20;
 #else
 	*size = 23<<20; //23MB for 7x27
 #endif

@@ -122,9 +122,6 @@ PRODUCT_COPY_FILES += \
 
 ## application
 PRODUCT_COPY_FILES += \
-    device/samsung/tass/app/BMKG.apk:system/app/BMKG.apk \
-    device/samsung/tass/app/Memo.apk:system/app/Memo.apk \
-    device/samsung/tass/app/ToCa.apk:system/app/ToCa.apk \
     device/samsung/tass/app/TaskManager.apk:system/app/TaskManager.apk
 
 ## Tweaks

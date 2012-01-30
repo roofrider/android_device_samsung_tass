@@ -120,6 +120,13 @@ PRODUCT_COPY_FILES += \
     device/samsung/tass/prebuilt/sec_key.kl:system/usr/keylayout/sec_key.kl \
     device/samsung/tass/prebuilt/sec_key.kcm.bin:system/usr/keychars/sec_key.kcm.bin
 
+## application
+PRODUCT_COPY_FILES += \
+    device/samsung/tass/app/BMKG.apk:system/app/BMKG.apk \
+    device/samsung/tass/app/Memo.apk:system/app/Memo.apk \
+    device/samsung/tass/app/ToCa.apk:system/app/ToCa.apk \
+    device/samsung/tass/app/TaskManager.apk:system/app/TaskManager.apk
+
 ## Tweaks
 ## PRODUCT_COPY_FILES += \
 ##     device/samsung/tass/prebuilt/30mountcache:system/etc/init.d/30mountcache \

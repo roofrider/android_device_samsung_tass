@@ -22,11 +22,12 @@ LOCAL_PATH:= $(call my-dir)
 # WARNING: This line must come *before* including the proprietary
 # variant, so that it gets overwritten by the parent (which goes
 # against the traditional rules of inheritance).
-USE_CAMERA_STUB:= false
+USE_CAMERA_STUB:= true
 #BOARD_USE_FROYO_LIBCAMERA := true
 COPYBIT_MSM7K := true
 
 TARGET_NO_BOOTLOADER := true
+TARGET_NO_RADIOIMAGE := true
 
 TARGET_BOARD_PLATFORM := msm7k
 TARGET_ARCH_VARIANT := armv6-vfp
@@ -34,13 +35,18 @@ TARGET_CPU_ABI := armeabi-v6l
 TARGET_CPU_ABI2 := armeabi
 
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno200
+BOARD_AVOID_DRAW_TEXTURE_EXTENSION := true
 
 TARGET_BOOTLOADER_BOARD_NAME := tass
 TARGET_OTA_ASSERT_DEVICE := tass,GT-S5570
 BOARD_USE_SCREENCAP := true
 
+TARGET_OVERLAY_ALWAYS_DETERMINES_FORMAT := true
+TARGET_USE_SOFTWARE_AUDIO_AAC := true
+
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
+BOARD_FORCE_STATIC_A2DP := true
 HAS_BCM20780 := true
 BOARD_GLOBAL_CFLAGS += -DHAS_BCM20780
 

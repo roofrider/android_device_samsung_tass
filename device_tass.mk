@@ -109,8 +109,6 @@ PRODUCT_COPY_FILES += \
     device/samsung/tass/prebuilt/AudioFilter.csv:system/etc/AudioFilter.csv \
     device/samsung/tass/prebuilt/media_profiles.xml:system/etc/media_profiles.xml \
     device/samsung/tass/prebuilt/audio.conf:system/etc/bluetooth/audio.conf \
-    device/samsung/tass/prebuilt/bootsound:system/bin/bootsound \
-    device/samsung/tass/prebuilt/poweron.ogg:system/media/poweron.ogg \
     device/samsung/tass/prebuilt/vold.fstab:system/etc/vold.fstab 
 
 ## keymap
@@ -121,11 +119,10 @@ PRODUCT_COPY_FILES += \
     device/samsung/tass/prebuilt/sec_key.kcm.bin:system/usr/keychars/sec_key.kcm.bin
 
 ## application
-PRODUCT_COPY_FILES += \
-    device/samsung/tass/app/BMKG.apk:system/app/BMKG.apk \
-    device/samsung/tass/app/Memo.apk:system/app/Memo.apk \
-    device/samsung/tass/app/ToCa.apk:system/app/ToCa.apk \
-    device/samsung/tass/app/TaskManager.apk:system/app/TaskManager.apk
+## PRODUCT_COPY_FILES += \
+##    device/samsung/tass/prebuilt/bootsound:system/bin/bootsound \
+##    device/samsung/tass/prebuilt/poweron.ogg:system/media/poweron.ogg \
+##    device/samsung/tass/app/TaskManager.apk:system/app/TaskManager.apk
 
 ## Tweaks
 ## PRODUCT_COPY_FILES += \

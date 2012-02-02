@@ -57,6 +57,7 @@ PRODUCT_PACKAGES += \
     rzscontrol \
     SamsungServiceMode \
     bdaddr_read \
+    camerashutter \
     dexpreopt \
     dump_image \
     e2fsck \

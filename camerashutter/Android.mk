@@ -5,9 +5,7 @@ include $(CLEAR_VARS)
 LOCAL_SRC_FILES := patchlcs.c
 LOCAL_MODULE := patchlcs
 LOCAL_MODULE_TAGS := optional
-
-include $(BUILD_HOST_EXECUTABLE)
-PATCHLCS := $(LOCAL_BUILT_MODULE)
+include $(BUILD_EXECUTABLE)
 
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := toggleshutter.c

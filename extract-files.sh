@@ -118,7 +118,10 @@ adb pull /system/lib/hw/lights.msm7k.so ../../../vendor/$MANUFACTURER/$DEVICE/pr
 # sensor
 adb pull /system/lib/hw/sensors.default.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/lib/hw
 adb pull /system/bin/memsicd ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/bin
-
+adb pull /system/lib/libacc.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/lib
+adb pull /system/lib/libaccelcal.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/lib
+adb pull /system/lib/libaccsensorcal.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/lib
+adb pull /system/lib/libaccsensorcaltest.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/lib
 # camera
 adb pull /system/lib/egl/libGLESv1_CM_adreno200.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/lib/egl
 adb pull /system/lib/egl/libq3dtools_adreno200.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/lib/egl
@@ -254,7 +257,11 @@ PRODUCT_COPY_FILES += \\
 ## Sensor
 PRODUCT_COPY_FILES += \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/lib/hw/sensors.default.so:system/lib/hw/sensors.default.so \\
-    vendor/__MANUFACTURER__/__DEVICE__/proprietary/bin/memsicd:system/bin/memsicd 
+    vendor/__MANUFACTURER__/__DEVICE__/proprietary/bin/memsicd:system/bin/memsicd \\
+    vendor/__MANUFACTURER__/__DEVICE__/proprietary/lib/libacc.so:system/lib/libacc.so \\
+    vendor/__MANUFACTURER__/__DEVICE__/proprietary/lib/libaccelcal.so:system/lib/libaccelcal.so \\
+    vendor/__MANUFACTURER__/__DEVICE__/proprietary/lib/libaccsensorcal.so:system/lib/libaccsensorcal.so \\
+    vendor/__MANUFACTURER__/__DEVICE__/proprietary/lib/libaccsensorcaltest.so:system/lib/libaccsensorcaltest.so
 EOF
 
 ./setup-makefiles.sh

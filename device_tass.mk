@@ -39,7 +39,7 @@
 # of hardware-specific resource overrides, typically the frameworks and
 # application settings that are stored in resourced.
 $(call inherit-product, build/target/product/languages_full.mk)
-$(call inherit-product, build/target/product/full_base.mk)
+$(call inherit-product, build/target/product/full.mk)
 
 # The gps config appropriate for this device
 $(call inherit-product, device/common/gps/gps_us_supl.mk)
@@ -131,3 +131,4 @@ PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 PRODUCT_NAME := tass
 PRODUCT_DEVICE := tass
 PRODUCT_MODEL := GT-S5570
+PRODUCT_BRAND := Samsung
